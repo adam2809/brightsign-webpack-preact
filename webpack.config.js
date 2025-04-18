@@ -42,19 +42,16 @@ const swcOptionsNode = {
 
 const swcOptionsBrowser = {
   jsc: {
-    ...swcOptionsNode.jsc,
     parser: {
-      ...swcOptionsNode.jsc.parser,
-      tsx: true
+      syntax: 'typescript',
+      tsx: true,
+      dynamicImport: true
     },
+    target: `es${ecmaVersion}`,
     transform: {
-      react:
-        {
-          runtime: 'automatic',
-          importSource: 'preact',
-          pragma: 'h',
-          pragmaFrag: 'Fragment'
-        }
+      react: {
+        runtime: 'automatic'
+      }
     }
   }
 }
@@ -152,11 +149,7 @@ const browser = (env, argv) => ({
   },
   resolve: {
     alias: {
-      '~': __dirname,
-      react: 'preact/compat',
-      'react-dom': 'preact/compat',
-      'react-dom/test-utils': 'preact/test-utils',
-      'react/jsx-runtime': 'preact/jsx-runtime'
+      '~': __dirname
     },
     extensions: ['.tsx', '.jsx', '.mts', 'mjs', '.ts', '...']
   },
